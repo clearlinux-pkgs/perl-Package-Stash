@@ -4,7 +4,7 @@
 #
 Name     : perl-Package-Stash
 Version  : 0.37
-Release  : 2
+Release  : 3
 URL      : http://search.cpan.org/CPAN/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
 Summary  : 'routines for manipulating stashes'
@@ -44,6 +44,9 @@ doc components for the perl-Package-Stash package.
 %setup -q -n Package-Stash-0.37
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
@@ -57,7 +60,7 @@ fi
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make TEST_VERBOSE=1 test
 
 %install
@@ -74,9 +77,9 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.24.0/Package/Stash.pm
-/usr/lib/perl5/site_perl/5.24.0/Package/Stash/Conflicts.pm
-/usr/lib/perl5/site_perl/5.24.0/Package/Stash/PP.pm
+/usr/lib/perl5/site_perl/5.26.0/Package/Stash.pm
+/usr/lib/perl5/site_perl/5.26.0/Package/Stash/Conflicts.pm
+/usr/lib/perl5/site_perl/5.26.0/Package/Stash/PP.pm
 
 %files bin
 %defattr(-,root,root,-)
