@@ -4,7 +4,7 @@
 #
 Name     : perl-Package-Stash
 Version  : 0.37
-Release  : 3
+Release  : 4
 URL      : http://search.cpan.org/CPAN/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
 Source0  : http://search.cpan.org/CPAN/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
 Summary  : 'routines for manipulating stashes'
@@ -77,9 +77,9 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.0/Package/Stash.pm
-/usr/lib/perl5/site_perl/5.26.0/Package/Stash/Conflicts.pm
-/usr/lib/perl5/site_perl/5.26.0/Package/Stash/PP.pm
+/usr/lib/perl5/site_perl/5.26.1/Package/Stash.pm
+/usr/lib/perl5/site_perl/5.26.1/Package/Stash/Conflicts.pm
+/usr/lib/perl5/site_perl/5.26.1/Package/Stash/PP.pm
 
 %files bin
 %defattr(-,root,root,-)
