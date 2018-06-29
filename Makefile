@@ -1,5 +1,5 @@
 PKG_NAME := perl-Package-Stash
-URL := http://search.cpan.org/CPAN/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
-
+URL = https://cpan.metacpan.org/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
+ARCHIVES = 
 
 include ../common/Makefile.common

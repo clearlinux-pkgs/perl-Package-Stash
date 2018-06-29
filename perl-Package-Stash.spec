@@ -4,14 +4,15 @@
 #
 Name     : perl-Package-Stash
 Version  : 0.37
-Release  : 6
-URL      : http://search.cpan.org/CPAN/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
-Source0  : http://search.cpan.org/CPAN/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
+Release  : 7
+URL      : https://cpan.metacpan.org/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
+Source0  : https://cpan.metacpan.org/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
 Summary  : 'routines for manipulating stashes'
 Group    : Development/Tools
-License  : Artistic-1.0-Perl GPL-1.0
+License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-Package-Stash-bin
-Requires: perl-Package-Stash-doc
+Requires: perl-Package-Stash-license
+Requires: perl-Package-Stash-man
 BuildRequires : perl(Dist::CheckConflicts)
 BuildRequires : perl(Module::Implementation)
 BuildRequires : perl(Module::Runtime)
@@ -27,17 +28,27 @@ routines for manipulating stashes
 %package bin
 Summary: bin components for the perl-Package-Stash package.
 Group: Binaries
+Requires: perl-Package-Stash-license
+Requires: perl-Package-Stash-man
 
 %description bin
 bin components for the perl-Package-Stash package.
 
 
-%package doc
-Summary: doc components for the perl-Package-Stash package.
-Group: Documentation
+%package license
+Summary: license components for the perl-Package-Stash package.
+Group: Default
 
-%description doc
-doc components for the perl-Package-Stash package.
+%description license
+license components for the perl-Package-Stash package.
+
+
+%package man
+Summary: man components for the perl-Package-Stash package.
+Group: Default
+
+%description man
+man components for the perl-Package-Stash package.
 
 
 %prep
@@ -50,7 +61,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 else
 %{__perl} Build.PL
 ./Build
@@ -65,6 +76,8 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/perl-Package-Stash
+cp LICENSE %{buildroot}/usr/share/doc/perl-Package-Stash/LICENSE
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot}
 else
@@ -85,7 +98,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 %defattr(-,root,root,-)
 /usr/bin/package-stash-conflicts
 
-%files doc
+%files license
 %defattr(-,root,root,-)
-%doc /usr/share/man/man1/*
-%doc /usr/share/man/man3/*
+/usr/share/doc/perl-Package-Stash/LICENSE
+
+%files man
+%defattr(-,root,root,-)
+/usr/share/man/man1/package-stash-conflicts.1
+/usr/share/man/man3/Package::Stash.3
+/usr/share/man/man3/Package::Stash::PP.3
