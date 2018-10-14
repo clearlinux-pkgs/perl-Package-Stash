@@ -1,0 +1,7 @@
+0.37
+perl(Dist::CheckConflicts)
+perl(Module::Implementation)
+perl(Module::Runtime)
+perl(Test::Fatal)
+perl(Test::Requires)
+perl(Try::Tiny)

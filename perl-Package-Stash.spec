@@ -4,15 +4,16 @@
 #
 Name     : perl-Package-Stash
 Version  : 0.37
-Release  : 7
+Release  : 8
 URL      : https://cpan.metacpan.org/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DO/DOY/Package-Stash-0.37.tar.gz
 Summary  : 'routines for manipulating stashes'
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
-Requires: perl-Package-Stash-bin
-Requires: perl-Package-Stash-license
-Requires: perl-Package-Stash-man
+Requires: perl-Package-Stash-bin = %{version}-%{release}
+Requires: perl-Package-Stash-license = %{version}-%{release}
+Requires: perl-Package-Stash-man = %{version}-%{release}
+BuildRequires : buildreq-cpan
 BuildRequires : perl(Dist::CheckConflicts)
 BuildRequires : perl(Module::Implementation)
 BuildRequires : perl(Module::Runtime)
@@ -28,11 +29,21 @@ routines for manipulating stashes
 %package bin
 Summary: bin components for the perl-Package-Stash package.
 Group: Binaries
-Requires: perl-Package-Stash-license
-Requires: perl-Package-Stash-man
+Requires: perl-Package-Stash-license = %{version}-%{release}
+Requires: perl-Package-Stash-man = %{version}-%{release}
 
 %description bin
 bin components for the perl-Package-Stash package.
+
+
+%package dev
+Summary: dev components for the perl-Package-Stash package.
+Group: Development
+Requires: perl-Package-Stash-bin = %{version}-%{release}
+Provides: perl-Package-Stash-devel = %{version}-%{release}
+
+%description dev
+dev components for the perl-Package-Stash package.
 
 
 %package license
@@ -76,12 +87,12 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/perl-Package-Stash
-cp LICENSE %{buildroot}/usr/share/doc/perl-Package-Stash/LICENSE
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-Package-Stash
+cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Package-Stash/LICENSE
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -90,20 +101,23 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/Package/Stash.pm
-/usr/lib/perl5/site_perl/5.26.1/Package/Stash/Conflicts.pm
-/usr/lib/perl5/site_perl/5.26.1/Package/Stash/PP.pm
+/usr/lib/perl5/vendor_perl/5.26.1/Package/Stash.pm
+/usr/lib/perl5/vendor_perl/5.26.1/Package/Stash/Conflicts.pm
+/usr/lib/perl5/vendor_perl/5.26.1/Package/Stash/PP.pm
 
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/package-stash-conflicts
 
-%files license
+%files dev
 %defattr(-,root,root,-)
-/usr/share/doc/perl-Package-Stash/LICENSE
-
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man1/package-stash-conflicts.1
 /usr/share/man/man3/Package::Stash.3
 /usr/share/man/man3/Package::Stash::PP.3
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Package-Stash/LICENSE
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/package-stash-conflicts.1
