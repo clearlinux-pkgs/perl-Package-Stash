@@ -4,14 +4,16 @@
 #
 Name     : perl-Package-Stash
 Version  : 0.38
-Release  : 17
+Release  : 18
 URL      : https://cpan.metacpan.org/authors/id/E/ET/ETHER/Package-Stash-0.38.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/E/ET/ETHER/Package-Stash-0.38.tar.gz
 Summary  : 'routines for manipulating stashes'
 Group    : Development/Tools
-License  : Artistic-1.0-Perl
+License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-Package-Stash-bin = %{version}-%{release}
+Requires: perl-Package-Stash-license = %{version}-%{release}
 Requires: perl-Package-Stash-man = %{version}-%{release}
+Requires: perl(Dist::CheckConflicts)
 BuildRequires : buildreq-cpan
 BuildRequires : perl(Dist::CheckConflicts)
 BuildRequires : perl(Module::Implementation)
@@ -28,7 +30,7 @@ routines for manipulating stashes
 %package bin
 Summary: bin components for the perl-Package-Stash package.
 Group: Binaries
-Requires: perl-Package-Stash-man = %{version}-%{release}
+Requires: perl-Package-Stash-license = %{version}-%{release}
 
 %description bin
 bin components for the perl-Package-Stash package.
@@ -39,9 +41,18 @@ Summary: dev components for the perl-Package-Stash package.
 Group: Development
 Requires: perl-Package-Stash-bin = %{version}-%{release}
 Provides: perl-Package-Stash-devel = %{version}-%{release}
+Requires: perl-Package-Stash = %{version}-%{release}
 
 %description dev
 dev components for the perl-Package-Stash package.
+
+
+%package license
+Summary: license components for the perl-Package-Stash package.
+Group: Default
+
+%description license
+license components for the perl-Package-Stash package.
 
 
 %package man
@@ -59,7 +70,7 @@ man components for the perl-Package-Stash package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -69,7 +80,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -77,6 +88,8 @@ make TEST_VERBOSE=1 test
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-Package-Stash
+cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Package-Stash/LICENSE
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -101,6 +114,10 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 %defattr(-,root,root,-)
 /usr/share/man/man3/Package::Stash.3
 /usr/share/man/man3/Package::Stash::PP.3
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Package-Stash/LICENSE
 
 %files man
 %defattr(0644,root,root,0755)
