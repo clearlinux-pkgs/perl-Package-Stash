@@ -4,7 +4,7 @@
 #
 Name     : perl-Package-Stash
 Version  : 0.38
-Release  : 18
+Release  : 19
 URL      : https://cpan.metacpan.org/authors/id/E/ET/ETHER/Package-Stash-0.38.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/E/ET/ETHER/Package-Stash-0.38.tar.gz
 Summary  : 'routines for manipulating stashes'
@@ -13,6 +13,7 @@ License  : Artistic-1.0 Artistic-1.0-Perl GPL-1.0
 Requires: perl-Package-Stash-bin = %{version}-%{release}
 Requires: perl-Package-Stash-license = %{version}-%{release}
 Requires: perl-Package-Stash-man = %{version}-%{release}
+Requires: perl-Package-Stash-perl = %{version}-%{release}
 Requires: perl(Dist::CheckConflicts)
 BuildRequires : buildreq-cpan
 BuildRequires : perl(Dist::CheckConflicts)
@@ -63,8 +64,18 @@ Group: Default
 man components for the perl-Package-Stash package.
 
 
+%package perl
+Summary: perl components for the perl-Package-Stash package.
+Group: Default
+Requires: perl-Package-Stash = %{version}-%{release}
+
+%description perl
+perl components for the perl-Package-Stash package.
+
+
 %prep
 %setup -q -n Package-Stash-0.38
+cd %{_builddir}/Package-Stash-0.38
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -89,7 +100,7 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Package-Stash
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Package-Stash/LICENSE
+cp %{_builddir}/Package-Stash-0.38/LICENSE %{buildroot}/usr/share/package-licenses/perl-Package-Stash/86fe74a925805c9016a91b52d3efab8705c51e94
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -102,9 +113,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Package/Stash.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Package/Stash/Conflicts.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Package/Stash/PP.pm
 
 %files bin
 %defattr(-,root,root,-)
@@ -117,8 +125,14 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Package-Stash/LICENSE
+/usr/share/package-licenses/perl-Package-Stash/86fe74a925805c9016a91b52d3efab8705c51e94
 
 %files man
 %defattr(0644,root,root,0755)
 /usr/share/man/man1/package-stash-conflicts.1
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Package/Stash.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Package/Stash/Conflicts.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Package/Stash/PP.pm
