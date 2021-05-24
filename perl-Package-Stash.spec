@@ -4,7 +4,7 @@
 #
 Name     : perl-Package-Stash
 Version  : 0.39
-Release  : 24
+Release  : 25
 URL      : https://cpan.metacpan.org/authors/id/E/ET/ETHER/Package-Stash-0.39.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/E/ET/ETHER/Package-Stash-0.39.tar.gz
 Summary  : 'Routines for manipulating stashes'
@@ -120,6 +120,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.32.1/Package/Stash.pm
-/usr/lib/perl5/vendor_perl/5.32.1/Package/Stash/Conflicts.pm
-/usr/lib/perl5/vendor_perl/5.32.1/Package/Stash/PP.pm
+/usr/lib/perl5/vendor_perl/5.34.0/Package/Stash.pm
+/usr/lib/perl5/vendor_perl/5.34.0/Package/Stash/Conflicts.pm
+/usr/lib/perl5/vendor_perl/5.34.0/Package/Stash/PP.pm
