@@ -4,7 +4,7 @@
 #
 Name     : perl-Package-Stash
 Version  : 0.39
-Release  : 25
+Release  : 26
 URL      : https://cpan.metacpan.org/authors/id/E/ET/ETHER/Package-Stash-0.39.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/E/ET/ETHER/Package-Stash-0.39.tar.gz
 Summary  : 'Routines for manipulating stashes'
